@@ -765,7 +765,7 @@ if (loc.startsWith("https://twitter.com/") || loc.startsWith("https://x.com/")) 
     // "Show replies"
     'button[role="button"] > div > div > div[style][dir] > span[class^="css-"]',
     // "Show probable spam"
-    'div[dir="ltr"][style="text-overflow: unset; color: rgb(29, 155, 240);"] > span[class][style="text-overflow: unset;"]',
+    'button[class][role="button"][type="button"] > div > div[dir="ltr"][style] > span[class^="css-"]',
     // "Show additional replies, including those that may contain offensive content"
     'button > div[style^="text-overflow: unset;"] > span[class][style="text-overflow: unset;"] > span[class][style="text-overflow: unset;"]',
   ], el => {
