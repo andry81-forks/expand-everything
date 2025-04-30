@@ -40,6 +40,7 @@
 // @match       https://www.computerenhance.com/*
 // @match       https://www.tracingwoodgrains.com/*
 // @match       https://www.theintrinsicperspective.com/*
+// @match       https://www.noahpinion.blog/*
 //
 // Mastodon sites
 // @match       https://mastodon.social/*
@@ -474,7 +475,8 @@ if (
   window.location.host === "www.astralcodexten.com" ||
   window.location.host === "www.computerenhance.com" ||
   window.location.host === "www.tracingwoodgrains.com" ||
-  window.location.host === "www.theintrinsicperspective.com"
+  window.location.host === "www.theintrinsicperspective.com" ||
+  window.location.host === "www.noahpinion.blog"
 ) {
   observe(100, [
     // "No thanks" button; clicking removes the overlay
