@@ -762,6 +762,9 @@ if (
 //
 // Test page: https://x.com/liz_love_lace/status/1812457271126835489
 // Expected: after scrolling down, "Show additional replies, including those that may contain offensive content" is not visible
+//
+// Test page: https://x.com/terronk/status/1916218168626012356
+// Expected: "Show more" not visible on ActionGrad's reply
 if (loc.startsWith("https://twitter.com/") || loc.startsWith("https://x.com/")) {
   observe(1000, [
     // "Show replies"
@@ -770,8 +773,10 @@ if (loc.startsWith("https://twitter.com/") || loc.startsWith("https://x.com/")) 
     'button[class][role="button"][type="button"] > div > div[dir="ltr"][style] > span[class^="css-"]',
     // "Show additional replies, including those that may contain offensive content"
     'button > div[style^="text-overflow: unset;"] > span[class][style="text-overflow: unset;"] > span[class][style="text-overflow: unset;"]',
+    // "Show more" on long tweets
+    'button[data-testid="tweet-text-show-more-link"][type="button"] > span[class]',
   ], el => {
-    if (el.innerText === "Show replies" || el.innerText === "Show probable spam" || el.innerText === "Show") {
+    if (el.innerText === "Show replies" || el.innerText === "Show probable spam" || el.innerText === "Show" || el.innerText === "Show more") {
       el.click();
     }
   });
