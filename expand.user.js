@@ -785,10 +785,12 @@ if (loc.startsWith("https://twitter.com/") || loc.startsWith("https://x.com/")) 
 // Test page: https://www.google.com/search?q=Pacific+West+Home+Improvements
 // Expected: after clicking '54 Google reviews', all the reviews are expanded and the "More" links are not visible
 if (loc.startsWith("https://www.google.com/search")) {
-  observe(100, [
-    'a.review-more-link[role="button"][aria-expanded="false"]'
+  observe(200, [
+    'div[class][jscontroller] > a[class][role="button"][tabindex="0"][aria-label^="Read more of "][jsaction][data-ved]'
   ], el => {
-    el.click();
+    if (el.innerText === " More") {
+      el.click();
+    }
   });
 }
 
