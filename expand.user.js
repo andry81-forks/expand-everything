@@ -548,6 +548,9 @@ if (loc.startsWith("https://news.ycombinator.com/")) {
 //
 // Test page: https://github.com/PolyMC/PolyMC/commit/ccf282593dcdbe189c99b81b8bc90cb203aed3ee
 // Expected: all comments are loaded; "Load more comments..." button is not visible
+//
+// Test page: https://github.com/uBlockOrigin/uAssets/issues/5190
+// Expected: all comments are loaded; "Load more" button is not visible
 if (loc.startsWith("https://github.com/")) {
   observe(1000, [
     // "N hidden items; Load more..."
@@ -557,6 +560,8 @@ if (loc.startsWith("https://github.com/")) {
     '#js-progressive-timeline-item-container button.ajax-pagination-btn',
     // "Load more comments..." on a commit page
     '#all_commit_comments button.ajax-pagination-btn',
+    // "Load more" on an issue page
+    '[class^="IssueTimeline-module__loadMoreWrapper--"] button[class^="prc-Button-ButtonBase-"]',
     // "N similar comments"
     'summary.pagination-loader-container > .Details-content--closed',
     // "Show comment"
