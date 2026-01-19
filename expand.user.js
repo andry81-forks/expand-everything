@@ -247,6 +247,7 @@ const logPrefix = "Expand Everything: ";
 let pageCounter = 0;
 let mutations = 0;
 let observer = null;
+// Used only by the polling mechanism
 let lastHref = location.href;
 let locationInterval = null;
 
@@ -314,10 +315,17 @@ function observe(maxMutations, selectors, callback) {
     locationInterval = null;
   }
 
-  // So far, only Chromium-based browsers have Navigation API: https://caniuse.com/mdn-api_navigation
   if (window.navigation && navigation.addEventListener) {
     console.log(`${logPrefix}using Navigation API to detect location changes`);
-    navigation.addEventListener('navigate', (_ev) => {
+    navigation.addEventListener('navigate', (ev) => {
+      // We must ignore navigation events to the same location, or else we hang in Firefox as it loops infinitely on
+      // https://superuser.com/questions/681575/any-way-to-get-list-of-functions-defined-in-zsh-like-alias-command-for-aliases
+      //
+      // Possibly related to https://bugzilla.mozilla.org/show_bug.cgi?id=1997591
+      if (ev.destination.url === window.location.href) {
+        console.log(`${logPrefix}ignoring navigation event to the same location`);
+        return;
+      }
       navigated();
     });
   } else {
@@ -599,6 +607,9 @@ if (loc.startsWith("https://gist.github.com/")) {
 //
 // Test page: https://astronomy.stackexchange.com/questions/51544/is-the-solar-core-hard#
 // Expected: all comments are loaded; "Show N more comments" is not visible
+//
+// Test page: https://superuser.com/questions/681575/any-way-to-get-list-of-functions-defined-in-zsh-like-alias-command-for-aliases
+// Expected: all comments are loaded; the page / Firefox does not hang.
 if (window.StackExchange) {
   observe(100, [
     // "Show N more comments"
