@@ -542,6 +542,9 @@ if (loc.startsWith("https://news.ycombinator.com/")) {
 // Test page: https://github.com/rust-lang/rust/issues/57640
 // Expected: all comments are loaded; "N hidden items" button is not visible
 //
+// Test page: https://github.com/uBlockOrigin/uAssets/issues/5190
+// Expected: all comments are loaded; "Load more" button is not visible
+//
 // Test page: https://github.com/JustAnotherArchivist/snscrape/issues/634
 // Expected: spam/outdated/duplicate/off-topic comments are expanded
 //
@@ -558,7 +561,9 @@ if (loc.startsWith("https://news.ycombinator.com/")) {
 // Expected: all comments are loaded; "Load more comments..." button is not visible
 if (loc.startsWith("https://github.com/")) {
   observe(1000, [
-    // "N hidden items; Load more..."
+    // "N remaining items; Load more..." on an issue page
+    'button[data-testid="issue-timeline-load-more-load-top"]',
+    // "N hidden items; Load more..." on a pull request page
     //
     // We don't want all button.ajax-pagination-btn because clicking button.ajax-pagination-btn
     // on a profile page e.g. https://github.com/A causes the URL to start changing.
