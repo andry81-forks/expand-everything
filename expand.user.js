@@ -612,10 +612,18 @@ if (loc.startsWith("https://gist.github.com/")) {
 // Expected: all comments are loaded; the page / Firefox does not hang.
 if (window.StackExchange) {
   observe(100, [
-    // "Show N more comments"
+    // "Show N more comments" on superuser.com
     'a.js-show-link:not(.dno)',
+    // "Show N more comments" on stackoverflow.com
+    'div.d-flex > button.comments-link',
   ], el => {
-    el.click();
+    if (el.tagName === "BUTTON") {
+      if (el.innerText.includes("more comment")) {
+        el.click();
+      }
+    } else {
+      el.click();
+    }
   });
 }
 
