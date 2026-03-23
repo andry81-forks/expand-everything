@@ -234,6 +234,9 @@
 // @match       https://worldbuilding.stackexchange.com/*
 // @match       https://writing.stackexchange.com/*
 //
+// Blogger sites
+// @match       https://daviddeley.com/*
+//
 // ==/UserScript==
 
 const loc = window.location.href;
@@ -853,5 +856,16 @@ if (loc.startsWith("https://www.criticker.com/")) {
     if (el.innerText === "More") {
       clickIfUnclicked(el);
     }
+  });
+}
+
+// Test page: https://daviddeley.com/autohotkey/parameters/parameters.htm
+// Expected: plus image button blocks are expanded
+if (loc.startsWith("https://daviddeley.com/")) {
+  observe(1000, [
+    // "[+]..."
+    '[class^="expand"]',
+  ], el => {
+    clickIfUnclicked(el);
   });
 }
